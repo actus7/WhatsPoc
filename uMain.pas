@@ -356,19 +356,14 @@ procedure TfrmMain.TInject1GetAllGroupContacts(const Contacts: TClassAllGroupCon
 var
   JSonValue: TJSonValue;
   ArrayRows: TJSONArray;
-  i: Integer;
 begin
   JSonValue := TJSonObject.ParseJSONValue(Contacts.result);
-  ArrayRows := JSonValue as TJSONArray;
-
-  frmChat.Contatos := ArrayRows;
-
-  // listaParticipantes.Clear;
-
-  { for i := 0 to ArrayRows.Size - 1 do
-    begin
-    AddGroupContacts(ArrayRows.Items[i].value)
-    end; }
+  try
+    ArrayRows := JSonValue as TJSONArray;
+    frmChat.EnviaContatos := ArrayRows;
+  finally
+    JSonValue.Free;
+  end;
 end;
 
 procedure TfrmMain.TInject1GetAllGroupList(const AllGroups: TRetornoAllGroups);

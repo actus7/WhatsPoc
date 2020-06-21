@@ -107,10 +107,6 @@ inherited frmChat: TfrmChat
     ReadOnly = True
     TabOrder = 3
     Zoom = 100
-    ExplicitLeft = 184
-    ExplicitTop = 128
-    ExplicitWidth = 185
-    ExplicitHeight = 89
   end
   object fdmUsuarios: TFDMemTable
     FetchOptions.AssignedValues = [evMode]

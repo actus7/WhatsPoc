@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
-  System.Classes, Vcl.Graphics,
+  System.Classes, System.AnsiStrings, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uBaseChildForm, Data.DB, Vcl.StdCtrls,
   Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
@@ -37,7 +37,7 @@ type
     { Private declarations }
   public
     property Endereco: String read fEndereco write fEndereco;
-    property Contatos: TJSONArray write SetContatos;
+    property EnviaContatos: TJSONArray write SetContatos;
     property Mensagem: TMessagesClass write SetMensagem;
     { Public declarations }
   end;
@@ -118,38 +118,46 @@ var
   Mensagem: String;
   Contato: TContato;
 begin
-  if UpperCase(pMensagem.&type) = 'CHAT' then
-  begin
-    if pMensagem.Sender.isMe then
-    begin
-      with reChat do
+  case AnsiIndexStr(UpperCase(pMensagem.&type), ['CHAT', 'PTT', 'IMAGE', 'VIDEO', 'AUDIO', 'DOCUMENT']) of
+    0:
       begin
-        selstart := length(Text);
-        sellength := 0;
-        SelAttributes.Style := [];
-        seltext := '[' + TimeToStr(now) + ']';
+        if pMensagem.Sender.isMe then
+        begin
+          with reChat do
+          begin
+            selstart := length(Text);
+            sellength := 0;
+            SelAttributes.Style := [];
+            seltext := '[' + TimeToStr(now) + ']';
 
-        selstart := length(Text);
-        sellength := 0;
-        SelAttributes.Style := [fsBold];
-        seltext := ' <Você> ';
+            selstart := length(Text);
+            sellength := 0;
+            SelAttributes.Style := [fsBold];
+            seltext := ' <Você> ';
 
-        selstart := length(Text);
-        sellength := 0;
-        SelAttributes.Style := [];
-        seltext := StringReplace(pMensagem.body, #$A, #13#10, [rfReplaceAll, rfIgnoreCase]);
-        lines.add(''); // new line
+            selstart := length(Text);
+            sellength := 0;
+            SelAttributes.Style := [];
+            seltext := StringReplace(pMensagem.body, #$A, #13#10, [rfReplaceAll, rfIgnoreCase]);
+            lines.add(''); // new line
+          end;
+        end
+        else
+        begin
+          Mensagem := '[' + TimeToStr(now) + '] ';
+          Mensagem := Mensagem + '<' + pMensagem.Sender.PushName + '> ';
+          Mensagem := Mensagem + StringReplace(pMensagem.body, #$A, #13#10, [rfReplaceAll, rfIgnoreCase]);
+          reChat.lines.add(Mensagem);
+        end;
       end;
-    end
-    else
-    begin
-      Mensagem := '[' + TimeToStr(now) + '] ';
-      Mensagem := Mensagem + '<' + pMensagem.Sender.PushName + '> ';
-      Mensagem := Mensagem + StringReplace(pMensagem.body, #$A, #13#10, [rfReplaceAll, rfIgnoreCase]);
-      reChat.lines.add(Mensagem);
-    end;
+    1..5:
+      begin
+        Mensagem := '[' + TimeToStr(now) + '] ';
+        Mensagem := Mensagem + '<' + pMensagem.Sender.PushName + '> ';
+        Mensagem := Mensagem + 'Enviou um arquivo '+pMensagem.&type;
+        reChat.lines.add(Mensagem);
+      end;
   end;
-
 end;
 
 end.

@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.ExtCtrls, Vcl.ComCtrls, Data.DB, Vcl.Grids, Vcl.DBGrids,
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
   FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
-  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client, ClipBrd;
 
 type
   TfrmPublicRooms = class(TfrmBaseChildForm)
@@ -49,6 +49,7 @@ uses
 procedure TfrmPublicRooms.DBGrid1DblClick(Sender: TObject);
 begin
   if fdmSalas.Active then
+    Clipboard.AsText := fdmSalasendereco.AsString;
     frmMain.AbrirSala(fdmSalasendereco.AsString, fdmSalassala.AsString);
 end;
 
