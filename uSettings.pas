@@ -23,8 +23,6 @@ type
     whatsOff: TImage;
     whatsOn: TImage;
     Label3: TLabel;
-    procedure btnDesconectarClick(Sender: TObject);
-    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -39,21 +37,6 @@ implementation
 {$R *.dfm}
 
 uses
-  uMain, uTInject.Constant;
-
-procedure TfrmSettings.btnDesconectarClick(Sender: TObject);
-begin
-  if not frmMain.TInject1.auth then
-    exit;
-
-   frmMain.TInject1.Logtout;
-   frmMain.TInject1.Disconnect;
-end;
-
-procedure TfrmSettings.FormShow(Sender: TObject);
-begin
-  if frmMain.TInject1.Status = Inject_Destroy then
-    frmMain.FazConexaoServidor;
-end;
+  uMain;
 
 end.

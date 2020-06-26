@@ -9,7 +9,7 @@ uses
   Vcl.ExtCtrls, Vcl.Grids, Vcl.DBGrids, Vcl.ComCtrls, FireDAC.Stan.Intf,
   FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
   FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Comp.DataSet,
-  FireDAC.Comp.Client, System.JSON, uTInject.Classes;
+  FireDAC.Comp.Client, System.JSON;
 
 type
   TfrmChat = class(TfrmBaseChildForm)
@@ -32,13 +32,13 @@ type
     procedure edtMensagemKeyPress(Sender: TObject; var Key: Char);
   private
     fEndereco: String;
-    procedure SetContatos(const pContatos: TJSONArray);
-    procedure SetMensagem(const pMensagem: TMessagesClass);
+    //procedure SetContatos(const pContatos: TJSONArray);
+    //procedure SetMensagem(const pMensagem: TMessagesClass);
     { Private declarations }
   public
     property Endereco: String read fEndereco write fEndereco;
-    property EnviaContatos: TJSONArray write SetContatos;
-    property Mensagem: TMessagesClass write SetMensagem;
+    //property EnviaContatos: TJSONArray write SetContatos;
+    //property Mensagem: TMessagesClass write SetMensagem;
     { Public declarations }
   end;
 
@@ -57,21 +57,11 @@ begin
   if Key = #13 then
   begin
     Key := #0;
-    if not Trim(edtMensagem.Text).IsEmpty then
-    begin
-      try
-        if not frmMain.TInject1.Auth then
-          Exit;
-
-        frmMain.TInject1.send(fEndereco, edtMensagem.Text);
-      finally
-        edtMensagem.Clear;
-      end;
-    end;
+    edtMensagem.Clear;
   end;
 end;
 
-procedure TfrmChat.SetContatos(const pContatos: TJSONArray);
+{procedure TfrmChat.SetContatos(const pContatos: TJSONArray);
 var
   i: Integer;
   Contato: TContato;
@@ -111,9 +101,9 @@ begin
     fdmUsuarios.EndBatch;
     fdmUsuarios.EnableControls;
   end;
-end;
+end; }
 
-procedure TfrmChat.SetMensagem(const pMensagem: TMessagesClass);
+{procedure TfrmChat.SetMensagem(const pMensagem: TMessagesClass);
 var
   Mensagem: String;
   Contato: TContato;
@@ -154,10 +144,10 @@ begin
       begin
         Mensagem := '[' + TimeToStr(now) + '] ';
         Mensagem := Mensagem + '<' + pMensagem.Sender.PushName + '> ';
-        Mensagem := Mensagem + 'Enviou um arquivo '+pMensagem.&type;
+        Mensagem := Mensagem + 'Enviou arquivo tipo -> '+pMensagem.&type;
         reChat.lines.add(Mensagem);
       end;
   end;
-end;
+end; }
 
 end.

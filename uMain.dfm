@@ -17,7 +17,6 @@ object frmMain: TfrmMain
   Position = poOwnerFormCenter
   OnClose = FormClose
   OnCreate = FormCreate
-  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object HashBackGround: TShape
@@ -387,25 +386,5 @@ object frmMain: TfrmMain
       8001FC61C00300008001FE3DC00300008001FF1DE00700008001FF81F00F0000
       8001FFCFFC3F0000FFFFFFFFFFFF000000000000000000000000000000000000
       000000000000}
-  end
-  object TInject1: TInject
-    InjectJS.AutoUpdate = False
-    InjectJS.AutoUpdateTimeOut = 20
-    Config.AutoDelay = 30
-    Config.ReceiveAttachmentAuto = False
-    Config.Zoom = 0
-    Config.SecondsMonitor = 5
-    Config.ShowRandom = False
-    AjustNumber.LengthPhone = 8
-    AjustNumber.DDIDefault = 55
-    FormQrCodeType = Ft_None
-    OnGetAllContactList = TInject1GetAllContactList
-    OnGetAllGroupList = TInject1GetAllGroupList
-    OnGetQrCode = TInject1GetQrCode
-    OnGetUnReadMessages = TInject1GetUnReadMessages
-    OnGetAllGroupContacts = TInject1GetAllGroupContacts
-    OnGetStatus = TInject1GetStatus
-    Left = 32
-    Top = 136
   end
 end

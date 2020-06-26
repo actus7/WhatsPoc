@@ -13,7 +13,6 @@ object frmSettings: TfrmSettings
   Font.Style = []
   OldCreateOrder = False
   Position = poOwnerFormCenter
-  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object PageControl1: TPageControl
@@ -1428,7 +1427,6 @@ object frmSettings: TfrmSettings
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
           Layout = blGlyphRight
           ParentBiDiMode = False
-          OnClick = btnDesconectarClick
           ExplicitTop = 395
         end
         object imgQrCode: TImage
@@ -2747,10 +2745,18 @@ object frmSettings: TfrmSettings
     object tsSharing: TTabSheet
       Caption = 'tsSharing'
       ImageIndex = 1
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
     end
     object tsDownload: TTabSheet
       Caption = 'tsDownload'
       ImageIndex = 2
+      ExplicitLeft = 0
+      ExplicitTop = 0
+      ExplicitWidth = 0
+      ExplicitHeight = 0
     end
   end
   object pnlBotoes: TPanel
